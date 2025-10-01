@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Servicio de la Base de Datos MySQL
+  db:
+    # Utilizamos la imagen oficial de MySQL v8
+    image: mysql:8.0
+    container_name: crm_mysql_db
+    
+    # IMPORTANTE: Busca el archivo .env en la raíz del proyecto (../)
+    env_file:
+      - ../.env
+      
+    # Variables de MySQL usadas por el contenedor
+    environment:
+      # Contraseña para el usuario 'root', se lee de DB_ROOT_PASSWORD en .env
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      # Base de datos que se creará, se lee de DB_NAME en .env
+      MYSQL_DATABASE: ${DB_NAME}
+      # Usuario no-root, se lee de DB_USERNAME en .env
+      MYSQL_USER: ${DB_USERNAME}
+      # Contraseña para el usuario no-root, se lee de DB_PASSWORD en .env
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      
+    # Mapeo de puertos: PUERTO_LOCAL:PUERTO_CONTENEDOR
+    # Esto permite que tu backend local se conecte a localhost:3306
+    ports:
+      - "3306:3306"
+      
+    # Persistencia de datos
+    volumes:
+      - crm-db-data:/var/lib/mysql
+      
+    # Comprobación de salud
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${DB_USERNAME}", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+    restart: always
+
+# Definición de volúmenes para persistencia de datos
+volumes:
+  crm-db-data:
