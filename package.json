@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "ts-node src/server.ts",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "nodemon --exec 'node --loader ts-node/esm' src/server.ts",
     "build": "rimraf dist && tsc",
     "serve": "node dist/server.js",
     "typeorm": "npm run typeorm -- -d ./src/config/data-source.ts"
@@ -36,6 +36,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.14.9",
+    "nodemon": "^3.1.4",
     "rimraf": "^5.0.7",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
