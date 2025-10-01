@@ -7,7 +7,7 @@ import { verifyJwt } from '../utils/jwt.utils.js';
  */
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   // 1. Obtener el token de las cookies
-  const accessToken = req.cookies.accessToken;
+  const accessToken = req?.cookies?.accessToken;
 
   if (!accessToken) {
     // Si no hay token, denegar acceso
