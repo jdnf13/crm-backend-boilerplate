@@ -1,9 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
-/**
- * Entidad TypeORM para la tabla de Usuarios (User).
- * Diseñada para almacenar la información de usuarios autenticados vía OAuth (ej. Google).
- */
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -19,11 +16,18 @@ export class User {
   lastName!: string;
 
   @Column({ default: 'google' })
-  authProvider!: string; // Define el proveedor de autenticación
+  authProvider!: string;
 
   @CreateDateColumn()
   createdAt!: Date;
 
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  @BeforeInsert()
+  generateId() {
+    if (!this.id) {
+      this.id = uuidv4();
+    }
+  }
 }
