@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  Column, 
+  CreateDateColumn, 
+  UpdateDateColumn, 
+  BeforeInsert 
+} from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Entidad TypeORM para la tabla de Clientes (Contacts) en el CRM.
@@ -35,4 +43,11 @@ export class Client {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  @BeforeInsert()
+  generateId() {
+    if (!this.id) {
+      this.id = uuidv4();
+    }
+  }
 }

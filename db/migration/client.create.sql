@@ -21,10 +21,10 @@ CREATE TABLE clients (
 -- ============================================================
 
 -- Clientes
-INSERT INTO clients (first_name, last_name, email, phone, company, status)
+INSERT INTO clients (id, firstName, lastName, email, phone, company, status)
 VALUES
-  ('Carlos', 'Ramírez', 'carlos.ramirez@example.com', '3001234567', 'Tech Solutions', 'Prospecto'),
-  ('Laura', 'Martínez', 'laura.martinez@example.com', '3109876543', 'Finanzas SA', 'Activo');
+  (UUID(), 'Carlos', 'Ramírez', 'carlos.ramirez@example.com', '3001234567', 'Tech Solutions', 'Prospecto'),
+  (UUID(), 'Laura', 'Martínez', 'laura.martinez@example.com', '3109876543', 'Finanzas SA', 'Activo');
 
 -- ============================================================
 -- VERIFICAR REGISTROS

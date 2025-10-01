@@ -19,10 +19,10 @@ CREATE TABLE users (
 -- ============================================================
 
 -- Usuarios
-INSERT INTO users (email, first_name, last_name, auth_provider)
+INSERT INTO users (id, email, firstName, lastName, authProvider)
 VALUES
-  ('juan@example.com', 'Juan', 'Pérez', 'google'),
-  ('maria@example.com', 'María', 'Gómez', 'google');
+  (UUID(), 'juan@example.com', 'Juan', 'Pérez', 'google'),
+  (UUID(), 'maria@example.com', 'María', 'Gómez', 'google');
 
 -- ============================================================
 -- VERIFICAR REGISTROS
